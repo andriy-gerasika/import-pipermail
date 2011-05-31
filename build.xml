@@ -1,0 +1,15 @@
+<project default="build">
+	<property name="name" value="import-mailman" />
+
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<target name="build" depends="clean">
+		<mkdir dir="build" />
+		<zip zipfile="build/${name}.zip">
+			<fileset excludes="bin, build, build.xml" dir="."/>
+		</zip>
+	</target>
+
+</project>
