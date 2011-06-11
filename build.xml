@@ -1,5 +1,5 @@
 <project default="build">
-	<property name="name" value="import-mailman" />
+	<property name="name" value="import-pipermail" />
 
 	<target name="clean">
 		<delete dir="build" />
