@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.zip.GZIPInputStream;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -40,7 +40,15 @@ public class ImportMailman {
 		try {
 			for (String url : urls) {
 				System.out.println("downloading " + url);
-				download(new URL(archiveUrl + url), archiveStream);
+				InputStream inputStream = new URL(archiveUrl + url).openStream();
+				try {
+					if (url.endsWith(".gz")) {
+						inputStream = new GZIPInputStream(inputStream);
+					}
+					transfuse(inputStream, archiveStream);
+				} finally {
+					inputStream.close();
+				}
 			}
 		} finally {
 			archiveStream.close();
@@ -53,18 +61,6 @@ public class ImportMailman {
 		int bytesRead;
 		while ((bytesRead = inputStream.read(buffer)) > 0) {
 			outputStream.write(buffer, 0, bytesRead);
-		}
-	}
-
-	private static void download(URL url, OutputStream outputStream) throws IOException {
-		URLConnection urlConnection = url.openConnection();
-		urlConnection.connect();
-
-		InputStream inputStream = url.openStream();
-		try {
-			transfuse(inputStream, outputStream);
-		} finally {
-			inputStream.close();
 		}
 	}
 }
