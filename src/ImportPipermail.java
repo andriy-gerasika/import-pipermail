@@ -18,7 +18,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-public class ImportMailman {
+public class ImportPipermail {
 
 	public static void main(String[] args) throws TransformerException, SAXException, IOException {
 		if (args.length != 2) {
@@ -29,7 +29,7 @@ public class ImportMailman {
 
 		System.out.println("downloading " + archiveUrl);
 		Transformer transformer = TransformerFactory.newInstance().newTransformer(
-				new StreamSource(ImportMailman.class.getResourceAsStream("import-mailman.xsl")));
+				new StreamSource(ImportPipermail.class.getResourceAsStream("import-pipermail.xsl")));
 		StringWriter writer = new StringWriter();
 		transformer.transform(
 				new SAXSource(XMLReaderFactory.createXMLReader("org.ccil.cowan.tagsoup.Parser"),
