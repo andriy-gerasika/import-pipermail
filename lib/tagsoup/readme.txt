@@ -1,1 +1,0 @@
-grab tagsoup JAR from http://home.ccil.org/~cowan/XML/tagsoup/ save as tagsoup.jar here
