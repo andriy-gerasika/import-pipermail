@@ -11,6 +11,6 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="ImportPipermail"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="http://www.antlr.org/pipermail/antlr-interest/&#10;antlr-interest-archive"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="http://www.antlr.org/pipermail/antlr-interest/&#10;tests/antlr-interest-archive"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="import-pipermail"/>
 </launchConfiguration>
