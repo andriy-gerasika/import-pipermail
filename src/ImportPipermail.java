@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,10 +40,24 @@ public class ImportPipermail {
 		OutputStream archiveStream = new FileOutputStream(archiveFile);
 		try {
 			for (String url : urls) {
-				System.out.println("downloading " + url);
-				InputStream inputStream = new URL(archiveUrl + url).openStream();
+				InputStream inputStream;
+				String inputStreamUrl;
 				try {
+					inputStreamUrl = archiveUrl + url;
+					System.out.println("downloading " + inputStreamUrl);
+					inputStream = new URL(inputStreamUrl).openStream();
+				} catch (FileNotFoundException e) {
+					// html contains link to .txt.gz but .txt.gz is not found: try .txt
 					if (url.endsWith(".gz")) {
+						inputStreamUrl = archiveUrl + url.substring(0, url.length() - ".gz".length());
+						System.out.println("\terror: file not found.\n\tdownloading " + inputStreamUrl + " instead");
+						inputStream = new URL(inputStreamUrl).openStream();
+					} else {
+						throw e;
+					}
+				}
+				try {
+					if (inputStreamUrl.endsWith(".gz")) {
 						inputStream = new GZIPInputStream(inputStream);
 					}
 					transfuse(inputStream, archiveStream);
